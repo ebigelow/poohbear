@@ -1,0 +1,4 @@
+{
+  "ticker_db_ltc": "data/ticker.db",
+  "orders_db_ltc": "data/orders.db"
+}

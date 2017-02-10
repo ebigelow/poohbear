@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package poloniex;
+
+message Trade {
+  string pair = 1;
+  float rate = 2;
+  float amount = 3;
+  float total = 4;
+  bytes timestamp = 5;
+}
+
+message TradeBlock {
+  bytes timestamp = 1;
+  repeated Trade trades = 2;
+}
+
+message TradeBlockRange {
+  repeated TradeBlock trades = 1;
+}
+
+message DateRange {
+  int32 Start = 1;
+  int32 End = 2;
+}
+
+
+service TradeRange {
+  rpc GetTradeRange(DateRange) returns (TradeBlockRange) {}
+}

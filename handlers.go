@@ -18,12 +18,13 @@ func LTCTickerHandler(p []interface{}, n map[string]interface{}) {
 
 	for _, value := range p {
 		parsed := value.(map[string]interface{})
-
 		if parsed["type"] == "newTrade" {
 			t := poloniex.ParseTrade(parsed, "BTC_LTC")
+			block.Timestamp = t.Timestamp
 			block.Trades = append(block.Trades, &t)
-			pp.Println(t)
+			pp.Println(block)
+			ltcTicker.AddTradeBlock(block)
 		}
 	}
-	ltcTicker.AddTradeBlock(block)
+
 }

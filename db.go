@@ -6,7 +6,6 @@ import (
 	"log"
 
 	"github.com/boltdb/bolt"
-	"github.com/clownpriest/poohbear/lib/poohbear"
 )
 
 type TickerDB struct {
@@ -49,7 +48,7 @@ func (db *TickerDB) Close() {
 	db.store.Close()
 }
 
-func (db *TickerDB) AddTradeBlock(x poohbear.TradeBlock) error {
+func (db *TickerDB) AddTradeBlock(x TradeBlock) error {
 	data, err := x.Marshal()
 	if err != nil {
 		return err
@@ -62,8 +61,8 @@ func (db *TickerDB) AddTradeBlock(x poohbear.TradeBlock) error {
 	return nil
 }
 
-func (db *TickerDB) GetTradeBlock(x []byte) *poohbear.TradeBlock {
-	result := new(poohbear.TradeBlock)
+func (db *TickerDB) GetTradeBlock(x []byte) *TradeBlock {
+	result := new(TradeBlock)
 	fmt.Println("inside GetTradeBlock")
 	db.store.View(func(tx *bolt.Tx) error {
 		b := tx.Bucket(db.mainBucket)
@@ -75,14 +74,14 @@ func (db *TickerDB) GetTradeBlock(x []byte) *poohbear.TradeBlock {
 	return result
 }
 
-func (db *TickerDB) GetTradeRange(start, end []byte) *poohbear.TradeBlockRange {
+func (db *TickerDB) GetTradeRange(start, end []byte) *TradeBlockRange {
 	startTime := []byte(start)
 	endTime := []byte(end)
-	result := new(poohbear.TradeBlockRange)
+	result := new(TradeBlockRange)
 	db.store.View(func(tx *bolt.Tx) error {
 		c := tx.Bucket(db.mainBucket).Cursor()
 		for k, v := c.Seek(startTime); k != nil && bytes.Compare(k, endTime) <= 0; k, v = c.Next() {
-			var block poohbear.TradeBlock
+			var block TradeBlock
 			block.Unmarshal(v)
 			result.Add(&block)
 		}

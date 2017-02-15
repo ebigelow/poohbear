@@ -5,8 +5,6 @@ import (
 	"net"
 	"sync"
 
-	"github.com/clownpriest/poohbear/lib/poohbear"
-
 	"golang.org/x/net/context"
 
 	"google.golang.org/grpc"
@@ -22,7 +20,7 @@ func startServer(port int, wg *sync.WaitGroup, tickerMap map[string]*TickerDB) {
 
 	var opts []grpc.ServerOption
 	grpcServer := grpc.NewServer(opts...)
-	poohbear.RegisterTradeRangeServer(grpcServer, newTradeServer(tickerMap))
+	RegisterTradeRangeServer(grpcServer, newTradeServer(tickerMap))
 	grpcServer.Serve(lis)
 }
 
@@ -36,8 +34,8 @@ func newTradeServer(tickerMap map[string]*TickerDB) *tradeServer {
 	return s
 }
 
-func (ps *tradeServer) GetTradeRange(ctx context.Context, r *poohbear.DateRange) (*poohbear.TradeBlockRange, error) {
-	var result *poohbear.TradeBlockRange
+func (ps *tradeServer) GetTradeRange(ctx context.Context, r *DateRange) (*TradeBlockRange, error) {
+	var result *TradeBlockRange
 	switch r.Pair {
 	case "BTC_LTC":
 		result = ps.tickerMap[r.Pair].GetTradeRange([]byte(r.Start), []byte(r.End))

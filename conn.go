@@ -4,7 +4,6 @@ import (
 	"log"
 	"sync"
 
-	"github.com/clownpriest/poohbear/exchange/poloniex"
 	"github.com/jcelliott/turnpike"
 )
 
@@ -14,7 +13,7 @@ type Conn struct {
 
 func SetupConnection(wg *sync.WaitGroup) {
 	defer wg.Done()
-	c, err := turnpike.NewWebsocketClient(turnpike.JSON, poloniex.WSAddress, nil, nil)
+	c, err := turnpike.NewWebsocketClient(turnpike.JSON, PoloniexWSAddress, nil, nil)
 	if err != nil {
 		log.Fatal(err)
 	}

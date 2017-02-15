@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package poohbear;
+package main;
 
 message Trade {
   string pair = 1;

@@ -9,5 +9,6 @@ git:
 before_install:
   - sudo apt-get update -qq
   - go get google.golang.org/grpc
+  - go install ./lib/poohbear
 
 script: make build

@@ -9,5 +9,8 @@ git:
 before_install:
   - sudo apt-get update -qq
   - go get google.golang.org/grpc
+  - go get github.com/jcelliott/turnpike
+  - go get github.com/boltdb/bolt/...
+  - go get github.com/k0kubun/pp
 
 script: make build

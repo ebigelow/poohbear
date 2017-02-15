@@ -3,8 +3,8 @@
 all: protos build
 
 build:
-	go install ./exchange/poloniex
 	go install ./lib/poohbear
+	go install ./exchange/poloniex
 	go build
 
 protos:

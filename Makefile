@@ -1,6 +1,8 @@
-.PHONY: protos
+.PHONY: protos build
 
-all: protos
+all: protos build
+
+build:
 	go install ./exchange/poloniex
 	go install ./lib/poohbear
 	go build

@@ -6,8 +6,11 @@ import (
 )
 
 type Config struct {
+	ServerPort  int    `json:"server_port"`
 	TickerDBLTC string `json:"ticker_db_ltc"`
 	OrdersDBLTC string `json:"orders_db_ltc"`
+	TickerDBETH string `json:"ticker_db_eth"`
+	OrdersDBETH string `json:"orders_db_eth"`
 }
 
 func ParseConfig(path string) (*Config, error) {

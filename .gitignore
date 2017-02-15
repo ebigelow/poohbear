@@ -1,4 +1,6 @@
 poohbear
+*.pyc
 *.png
 *.db
 *.DS_Store
+lib/python/build

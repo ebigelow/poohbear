@@ -7,10 +7,10 @@ import (
 )
 
 var (
-	mainConfig *Config
-	mainConn   *Conn
-	mainWG     sync.WaitGroup
-	ltcTicker  *TickerDB
+	mainConfig  *Config
+	mainConn    *Conn
+	mainWG      sync.WaitGroup
+	tickerDBMap map[string]*TickerDB
 )
 
 func main() {
@@ -21,10 +21,11 @@ func main() {
 		log.Fatal(err)
 	}
 
-	ltcTicker = LoadTickerDB("BTC_LTC", mainConfig.TickerDBLTC)
-	defer ltcTicker.Close()
+	tickerDBMap = setupTickerDBs(mainConfig)
 
-	mainWG.Add(1)
+	mainWG.Add(2)
 	go SetupConnection(&mainWG)
+	go startServer(mainConfig.ServerPort, &mainWG, tickerDBMap)
 	mainWG.Wait()
+
 }

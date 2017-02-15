@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package poloniex;
+package poohbear;
 
 message Trade {
   string pair = 1;
@@ -11,17 +11,20 @@ message Trade {
 }
 
 message TradeBlock {
-  string timestamp = 1;
-  repeated Trade trades = 2;
+  string pair = 1;
+  string timestamp = 2;
+  repeated Trade trades = 3;
 }
 
 message TradeBlockRange {
-  repeated TradeBlock trades = 1;
+  string pair = 1;
+  repeated TradeBlock trades = 2;
 }
 
 message DateRange {
-  string Start = 1;
-  string End = 2;
+  string pair = 1;
+  string start = 2;
+  string end = 3;
 }
 
 

@@ -1,10 +1,11 @@
 package poloniex
 
 import (
-	"encoding/binary"
 	"log"
 	"strconv"
 	"time"
+
+	"github.com/clownpriest/poohbear/lib/poohbear"
 )
 
 const timeLayout = "2006-01-02 15:04:05"
@@ -17,8 +18,8 @@ var (
 	timestamp = make([]byte, 8)
 )
 
-func ParseTrade(x map[string]interface{}, pair string) Trade {
-	t := Trade{}
+func ParseTrade(x map[string]interface{}, pair string) poohbear.Trade {
+	t := poohbear.Trade{}
 	t.Pair = pair
 	var err error
 	data := x["data"].(map[string]interface{})
@@ -45,8 +46,6 @@ func ParseTrade(x map[string]interface{}, pair string) Trade {
 		log.Fatal(err)
 	}
 
-	unixdate := date.Unix()
-	binary.LittleEndian.PutUint64(timestamp, uint64(unixdate))
-	t.Timestamp = timestamp
+	t.Timestamp = date.Format(time.RFC3339)
 	return t
 }

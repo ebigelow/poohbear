@@ -13,13 +13,13 @@ type TickerDB struct {
 	mainBucket []byte
 }
 
-func LoadTickerDB(pair, path string) *TickerDB {
+func LoadTickerDB(pair, path string) (*TickerDB, error) {
 	tickerDB := &TickerDB{store: new(bolt.DB)}
 	err := tickerDB.Open(pair, path)
 	if err != nil {
-		return nil
+		return tickerDB, err
 	}
-	return tickerDB
+	return tickerDB, nil
 }
 
 func (db *TickerDB) Open(pair, path string) error {

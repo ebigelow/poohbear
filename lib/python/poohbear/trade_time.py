@@ -10,6 +10,7 @@ def rfc3339_time(dt):
 def up_to_now(pair="", days_ago=0,
               hours_ago=0, minutes_ago=0,
               seconds_ago=0):
+
     end = rfc3339_time(datetime.utcnow())
 
     delta = timedelta(days=days_ago,
@@ -22,4 +23,5 @@ def up_to_now(pair="", days_ago=0,
     time_range = trade_pb2.DateRange(pair=pair,
                                      start=start,
                                      end=end)
+
     return time_range

@@ -1,7 +1,0 @@
-{
-  "server_port": 12345,
-  "ticker_db_ltc": "data/ticker_ltc.db",
-  "orders_db_ltc": "data/orders_ltc.db",
-  "ticker_db_eth": "data/ticker_eth.db",
-  "orders_db_eth": "data/orders_eth.db"
-}

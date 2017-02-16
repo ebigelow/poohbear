@@ -17,5 +17,6 @@ before_install:
   - go get github.com/jcelliott/turnpike
   - go get github.com/boltdb/bolt/...
   - go get github.com/k0kubun/pp
+  - go get -u go.uber.org/zap
 
 script: make build

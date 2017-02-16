@@ -27,5 +27,4 @@ func main() {
 	go SetupConnection(&mainWG)
 	go startServer(mainConfig.ServerPort, &mainWG, tickerDBMap)
 	mainWG.Wait()
-
 }

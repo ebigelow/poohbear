@@ -248,84 +248,109 @@ DateRange = _reflection.GeneratedProtocolMessageType('DateRange', (_message.Mess
 _sym_db.RegisterMessage(DateRange)
 
 
-import grpc
-from grpc.beta import implementations as beta_implementations
-from grpc.beta import interfaces as beta_interfaces
-from grpc.framework.common import cardinality
-from grpc.framework.interfaces.face import utilities as face_utilities
+try:
+  # THESE ELEMENTS WILL BE DEPRECATED.
+  # Please use the generated *_pb2_grpc.py files instead.
+  import grpc
+  from grpc.framework.common import cardinality
+  from grpc.framework.interfaces.face import utilities as face_utilities
+  from grpc.beta import implementations as beta_implementations
+  from grpc.beta import interfaces as beta_interfaces
 
 
-class TradeRangeStub(object):
+  class TradeRangeStub(object):
 
-  def __init__(self, channel):
-    """Constructor.
+    def __init__(self, channel):
+      """Constructor.
 
-    Args:
-      channel: A grpc.Channel.
-    """
-    self.GetTradeRange = channel.unary_unary(
-        '/main.TradeRange/GetTradeRange',
-        request_serializer=DateRange.SerializeToString,
-        response_deserializer=TradeBlockRange.FromString,
-        )
-
-
-class TradeRangeServicer(object):
-
-  def GetTradeRange(self, request, context):
-    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-    context.set_details('Method not implemented!')
-    raise NotImplementedError('Method not implemented!')
+      Args:
+        channel: A grpc.Channel.
+      """
+      self.GetTradeRange = channel.unary_unary(
+          '/main.TradeRange/GetTradeRange',
+          request_serializer=DateRange.SerializeToString,
+          response_deserializer=TradeBlockRange.FromString,
+          )
 
 
-def add_TradeRangeServicer_to_server(servicer, server):
-  rpc_method_handlers = {
-      'GetTradeRange': grpc.unary_unary_rpc_method_handler(
-          servicer.GetTradeRange,
-          request_deserializer=DateRange.FromString,
-          response_serializer=TradeBlockRange.SerializeToString,
-      ),
-  }
-  generic_handler = grpc.method_handlers_generic_handler(
-      'main.TradeRange', rpc_method_handlers)
-  server.add_generic_rpc_handlers((generic_handler,))
+  class TradeRangeServicer(object):
+
+    def GetTradeRange(self, request, context):
+      context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+      context.set_details('Method not implemented!')
+      raise NotImplementedError('Method not implemented!')
 
 
-class BetaTradeRangeServicer(object):
-  def GetTradeRange(self, request, context):
-    context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
+  def add_TradeRangeServicer_to_server(servicer, server):
+    rpc_method_handlers = {
+        'GetTradeRange': grpc.unary_unary_rpc_method_handler(
+            servicer.GetTradeRange,
+            request_deserializer=DateRange.FromString,
+            response_serializer=TradeBlockRange.SerializeToString,
+        ),
+    }
+    generic_handler = grpc.method_handlers_generic_handler(
+        'main.TradeRange', rpc_method_handlers)
+    server.add_generic_rpc_handlers((generic_handler,))
 
 
-class BetaTradeRangeStub(object):
-  def GetTradeRange(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
-    raise NotImplementedError()
-  GetTradeRange.future = None
+  class BetaTradeRangeServicer(object):
+    """The Beta API is deprecated for 0.15.0 and later.
+
+    It is recommended to use the GA API (classes and functions in this
+    file not marked beta) for all further purposes. This class was generated
+    only to ease transition from grpcio<0.15.0 to grpcio>=0.15.0."""
+    def GetTradeRange(self, request, context):
+      context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
 
 
-def beta_create_TradeRange_server(servicer, pool=None, pool_size=None, default_timeout=None, maximum_timeout=None):
-  request_deserializers = {
-    ('main.TradeRange', 'GetTradeRange'): DateRange.FromString,
-  }
-  response_serializers = {
-    ('main.TradeRange', 'GetTradeRange'): TradeBlockRange.SerializeToString,
-  }
-  method_implementations = {
-    ('main.TradeRange', 'GetTradeRange'): face_utilities.unary_unary_inline(servicer.GetTradeRange),
-  }
-  server_options = beta_implementations.server_options(request_deserializers=request_deserializers, response_serializers=response_serializers, thread_pool=pool, thread_pool_size=pool_size, default_timeout=default_timeout, maximum_timeout=maximum_timeout)
-  return beta_implementations.server(method_implementations, options=server_options)
+  class BetaTradeRangeStub(object):
+    """The Beta API is deprecated for 0.15.0 and later.
+
+    It is recommended to use the GA API (classes and functions in this
+    file not marked beta) for all further purposes. This class was generated
+    only to ease transition from grpcio<0.15.0 to grpcio>=0.15.0."""
+    def GetTradeRange(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
+      raise NotImplementedError()
+    GetTradeRange.future = None
 
 
-def beta_create_TradeRange_stub(channel, host=None, metadata_transformer=None, pool=None, pool_size=None):
-  request_serializers = {
-    ('main.TradeRange', 'GetTradeRange'): DateRange.SerializeToString,
-  }
-  response_deserializers = {
-    ('main.TradeRange', 'GetTradeRange'): TradeBlockRange.FromString,
-  }
-  cardinalities = {
-    'GetTradeRange': cardinality.Cardinality.UNARY_UNARY,
-  }
-  stub_options = beta_implementations.stub_options(host=host, metadata_transformer=metadata_transformer, request_serializers=request_serializers, response_deserializers=response_deserializers, thread_pool=pool, thread_pool_size=pool_size)
-  return beta_implementations.dynamic_stub(channel, 'main.TradeRange', cardinalities, options=stub_options)
+  def beta_create_TradeRange_server(servicer, pool=None, pool_size=None, default_timeout=None, maximum_timeout=None):
+    """The Beta API is deprecated for 0.15.0 and later.
+
+    It is recommended to use the GA API (classes and functions in this
+    file not marked beta) for all further purposes. This function was
+    generated only to ease transition from grpcio<0.15.0 to grpcio>=0.15.0"""
+    request_deserializers = {
+      ('main.TradeRange', 'GetTradeRange'): DateRange.FromString,
+    }
+    response_serializers = {
+      ('main.TradeRange', 'GetTradeRange'): TradeBlockRange.SerializeToString,
+    }
+    method_implementations = {
+      ('main.TradeRange', 'GetTradeRange'): face_utilities.unary_unary_inline(servicer.GetTradeRange),
+    }
+    server_options = beta_implementations.server_options(request_deserializers=request_deserializers, response_serializers=response_serializers, thread_pool=pool, thread_pool_size=pool_size, default_timeout=default_timeout, maximum_timeout=maximum_timeout)
+    return beta_implementations.server(method_implementations, options=server_options)
+
+
+  def beta_create_TradeRange_stub(channel, host=None, metadata_transformer=None, pool=None, pool_size=None):
+    """The Beta API is deprecated for 0.15.0 and later.
+
+    It is recommended to use the GA API (classes and functions in this
+    file not marked beta) for all further purposes. This function was
+    generated only to ease transition from grpcio<0.15.0 to grpcio>=0.15.0"""
+    request_serializers = {
+      ('main.TradeRange', 'GetTradeRange'): DateRange.SerializeToString,
+    }
+    response_deserializers = {
+      ('main.TradeRange', 'GetTradeRange'): TradeBlockRange.FromString,
+    }
+    cardinalities = {
+      'GetTradeRange': cardinality.Cardinality.UNARY_UNARY,
+    }
+    stub_options = beta_implementations.stub_options(host=host, metadata_transformer=metadata_transformer, request_serializers=request_serializers, response_deserializers=response_deserializers, thread_pool=pool, thread_pool_size=pool_size)
+    return beta_implementations.dynamic_stub(channel, 'main.TradeRange', cardinalities, options=stub_options)
+except ImportError:
+  pass
 # @@protoc_insertion_point(module_scope)

@@ -43,7 +43,6 @@ func ParseTradePoloniex(x map[string]interface{}, pair string) Trade {
 	if err != nil {
 		log.Fatal(err)
 	}
-
 	t.Timestamp = date.Format(time.RFC3339)
 	return t
 }

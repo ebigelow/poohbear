@@ -8,6 +8,6 @@ setup(name='poohbear',
       author='Arthur Elliott',
       author_email='clownpriest@gmail.com',
       license="MIT",
-      url='https://github.com/clownpriest/poohbear',
+      url='https://github.com/clownpriest/poohbear/lib/python',
       packages=["poohbear"]
 )

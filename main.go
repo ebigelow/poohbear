@@ -12,7 +12,7 @@ var (
 	mainConn    *Conn
 	mainWG      sync.WaitGroup
 	logger      *zap.Logger
-	tickerDBMap map[string]*TickerDB
+	tickerDBMap TickerDBMap
 )
 
 func main() {
@@ -38,7 +38,7 @@ func main() {
 	logger.Info("loaded the ticker databases")
 
 	mainWG.Add(2)
-	go SetupConnection(&mainWG)
+	go SetupPoloniexConnection(&mainWG)
 	logger.Info("setup connections to the exchanges")
 	go startServer(mainConfig.ServerPort, &mainWG, tickerDBMap)
 	logger.Info("started gRPC server", zap.Int("port", mainConfig.ServerPort))

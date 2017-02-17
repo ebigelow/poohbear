@@ -22,9 +22,10 @@ message TradeBlockRange {
 }
 
 message DateRange {
-  string pair = 1;
-  string start = 2;
-  string end = 3;
+  string exchange = 1;
+  string pair = 2;
+  string start = 3;
+  string end = 4;
 }
 
 

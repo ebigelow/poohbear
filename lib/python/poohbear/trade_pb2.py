@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='trade.proto',
   package='main',
   syntax='proto3',
-  serialized_pb=_b('\n\x0btrade.proto\x12\x04main\"U\n\x05Trade\x12\x0c\n\x04pair\x18\x01 \x01(\t\x12\x0c\n\x04rate\x18\x02 \x01(\x02\x12\x0e\n\x06\x61mount\x18\x03 \x01(\x02\x12\r\n\x05total\x18\x04 \x01(\x02\x12\x11\n\ttimestamp\x18\x05 \x01(\t\"J\n\nTradeBlock\x12\x0c\n\x04pair\x18\x01 \x01(\t\x12\x11\n\ttimestamp\x18\x02 \x01(\t\x12\x1b\n\x06trades\x18\x03 \x03(\x0b\x32\x0b.main.Trade\"A\n\x0fTradeBlockRange\x12\x0c\n\x04pair\x18\x01 \x01(\t\x12 \n\x06trades\x18\x02 \x03(\x0b\x32\x10.main.TradeBlock\"5\n\tDateRange\x12\x0c\n\x04pair\x18\x01 \x01(\t\x12\r\n\x05start\x18\x02 \x01(\t\x12\x0b\n\x03\x65nd\x18\x03 \x01(\t2G\n\nTradeRange\x12\x39\n\rGetTradeRange\x12\x0f.main.DateRange\x1a\x15.main.TradeBlockRange\"\x00\x62\x06proto3')
+  serialized_pb=_b('\n\x0btrade.proto\x12\x04main\"U\n\x05Trade\x12\x0c\n\x04pair\x18\x01 \x01(\t\x12\x0c\n\x04rate\x18\x02 \x01(\x02\x12\x0e\n\x06\x61mount\x18\x03 \x01(\x02\x12\r\n\x05total\x18\x04 \x01(\x02\x12\x11\n\ttimestamp\x18\x05 \x01(\t\"J\n\nTradeBlock\x12\x0c\n\x04pair\x18\x01 \x01(\t\x12\x11\n\ttimestamp\x18\x02 \x01(\t\x12\x1b\n\x06trades\x18\x03 \x03(\x0b\x32\x0b.main.Trade\"A\n\x0fTradeBlockRange\x12\x0c\n\x04pair\x18\x01 \x01(\t\x12 \n\x06trades\x18\x02 \x03(\x0b\x32\x10.main.TradeBlock\"G\n\tDateRange\x12\x10\n\x08\x65xchange\x18\x01 \x01(\t\x12\x0c\n\x04pair\x18\x02 \x01(\t\x12\r\n\x05start\x18\x03 \x01(\t\x12\x0b\n\x03\x65nd\x18\x04 \x01(\t2G\n\nTradeRange\x12\x39\n\rGetTradeRange\x12\x0f.main.DateRange\x1a\x15.main.TradeBlockRange\"\x00\x62\x06proto3')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -176,22 +176,29 @@ _DATERANGE = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='pair', full_name='main.DateRange.pair', index=0,
+      name='exchange', full_name='main.DateRange.exchange', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='start', full_name='main.DateRange.start', index=1,
+      name='pair', full_name='main.DateRange.pair', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='end', full_name='main.DateRange.end', index=2,
+      name='start', full_name='main.DateRange.start', index=2,
       number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='end', full_name='main.DateRange.end', index=3,
+      number=4, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -209,7 +216,7 @@ _DATERANGE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=251,
-  serialized_end=304,
+  serialized_end=322,
 )
 
 _TRADEBLOCK.fields_by_name['trades'].message_type = _TRADE

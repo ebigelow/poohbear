@@ -1,19 +1,26 @@
 package main
 
-func setupTickerDBs(config *Config) (map[string]*TickerDB, error) {
-	tickerDBMap := make(map[string]*TickerDB)
+func setupTickerDBs(config *Config) (TickerDBMap, error) {
+	tickerDBMap := make(TickerDBMap)
 
-	ltcTicker, err := LoadTickerDB("BTC_LTC", mainConfig.DBPaths["ticker_ltc"])
+	bitfinexBTCTicker, err := LoadTickerDB("BTC_USD", mainConfig.DBPaths.For("bitfinex", "ticker_btc"))
 	if err != nil {
 		return tickerDBMap, err
 	}
 
-	ethTicker, err := LoadTickerDB("BTC_ETH", mainConfig.DBPaths["ticker_eth"])
+	poloniexLTCTicker, err := LoadTickerDB("BTC_LTC", mainConfig.DBPaths.For("poloniex", "ticker_ltc"))
 	if err != nil {
 		return tickerDBMap, err
 	}
 
-	tickerDBMap["BTC_LTC"] = ltcTicker
-	tickerDBMap["BTC_ETH"] = ethTicker
+	poloniexETHTicker, err := LoadTickerDB("BTC_ETH", mainConfig.DBPaths.For("poloniex", "ticker_eth"))
+	if err != nil {
+		return tickerDBMap, err
+	}
+
+	tickerDBMap.Set("bitfinex", "BTC_USD", bitfinexBTCTicker)
+	tickerDBMap.Set("poloniex", "BTC_LTC", poloniexLTCTicker)
+	tickerDBMap.Set("poloniex", "BTC_ETH", poloniexETHTicker)
+
 	return tickerDBMap, nil
 }

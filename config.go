@@ -16,15 +16,16 @@ var (
 	poohbearDir    = path.Join(homeDir, ".poohbear")
 	configPath     = path.Join(poohbearDir, "config.json")
 	defaultDataDir = path.Join(poohbearDir, "data")
-	defLTCTickerDb = path.Join(defaultDataDir, "ticker_ltc.db")
-	defETHTickerDb = path.Join(defaultDataDir, "ticker_eth.db")
-	defLTCOrdersDb = path.Join(defaultDataDir, "orders_ltc.db")
-	defETHOrdersDb = path.Join(defaultDataDir, "orders_eth.db")
+	defBTCTickerDb = path.Join(defaultDataDir, "bitfinex_ticker_btc.db")
+	defLTCTickerDb = path.Join(defaultDataDir, "poloniex_ticker_ltc.db")
+	defETHTickerDb = path.Join(defaultDataDir, "poloniex_ticker_eth.db")
+	defLTCOrdersDb = path.Join(defaultDataDir, "poloniex_orders_ltc.db")
+	defETHOrdersDb = path.Join(defaultDataDir, "poloniex_orders_eth.db")
 )
 
 type Config struct {
-	ServerPort int               `json:"server_port"`
-	DBPaths    map[string]string `json:"db_paths"`
+	ServerPort int           `json:"server_port"`
+	DBPaths    ExchangeDBMap `json:"db_paths"`
 }
 
 func NewDefaultConfig() *Config {
@@ -64,11 +65,14 @@ func ParseConfig(path string) (*Config, error) {
 	return &config, nil
 }
 
-func DefaultDBPathMap() map[string]string {
-	db_paths := make(map[string]string)
-	db_paths["ticker_ltc"] = defLTCTickerDb
-	db_paths["ticker_eth"] = defETHTickerDb
-	db_paths["orders_ltc"] = defLTCOrdersDb
-	db_paths["orders_eth"] = defETHOrdersDb
-	return db_paths
+func DefaultDBPathMap() ExchangeDBMap {
+	dbPaths := make(ExchangeDBMap)
+	dbPaths["bitfinex"] = make(map[string]string)
+	dbPaths["bitfinex"]["ticker_btc"] = defBTCTickerDb
+	dbPaths["poloniex"] = make(map[string]string)
+	dbPaths["poloniex"]["ticker_ltc"] = defLTCTickerDb
+	dbPaths["poloniex"]["ticker_eth"] = defETHTickerDb
+	dbPaths["poloniex"]["orders_ltc"] = defLTCOrdersDb
+	dbPaths["poloniex"]["orders_eth"] = defETHOrdersDb
+	return dbPaths
 }

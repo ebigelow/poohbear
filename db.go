@@ -9,8 +9,9 @@ import (
 )
 
 type TickerDB struct {
-	store      *bolt.DB
-	mainBucket []byte
+	store         *bolt.DB
+	mainBucket    []byte
+	lastTradeTime []byte
 }
 
 func LoadTickerDB(pair, path string) (*TickerDB, error) {
@@ -74,11 +75,11 @@ func (db *TickerDB) GetTradeBlock(x []byte) *TradeBlock {
 	return result
 }
 
-func (db *TickerDB) GetTradeRange(start, end []byte) *TradeBlockRange {
+func (db *TickerDB) GetTradeRange(start, end []byte) (*TradeBlockRange, error) {
 	startTime := []byte(start)
 	endTime := []byte(end)
 	result := new(TradeBlockRange)
-	db.store.View(func(tx *bolt.Tx) error {
+	err := db.store.View(func(tx *bolt.Tx) error {
 		c := tx.Bucket(db.mainBucket).Cursor()
 		for k, v := c.Seek(startTime); k != nil && bytes.Compare(k, endTime) <= 0; k, v = c.Next() {
 			var block TradeBlock
@@ -87,5 +88,18 @@ func (db *TickerDB) GetTradeRange(start, end []byte) *TradeBlockRange {
 		}
 		return nil
 	})
-	return result
+	return result, err
 }
+
+// func (db *TickerDB) GetLastTrade() *TradeBlock {
+// 	result := new(TradeBlock)
+// 	db.store.View(func(tx *bolt.Tx) error {
+// 		c := tx.Bucket(db.mainBucket).Cursor()
+// 		for k, v := c.Seek(startTime); k != nil && bytes.Compare(k, endTime) <= 0; k, v = c.Next() {
+// 			var block TradeBlock
+// 			block.Unmarshal(v)
+// 			result.Add(&block)
+// 		}
+// 		return nil
+// 	})
+// }

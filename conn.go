@@ -11,7 +11,7 @@ type Conn struct {
 	client *turnpike.Client
 }
 
-func SetupConnection(wg *sync.WaitGroup) {
+func SetupPoloniexConnection(wg *sync.WaitGroup) {
 	defer wg.Done()
 	c, err := turnpike.NewWebsocketClient(turnpike.JSON, PoloniexWSAddress, nil, nil)
 	if err != nil {
@@ -23,12 +23,12 @@ func SetupConnection(wg *sync.WaitGroup) {
 		log.Fatal(err)
 	}
 
-	err = c.Subscribe("BTC_LTC", nil, LTCTickerHandler)
+	err = c.Subscribe("BTC_LTC", nil, PoloniexLTCTickerHandler)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	err = c.Subscribe("BTC_ETH", nil, ETHTickerHandler)
+	err = c.Subscribe("BTC_ETH", nil, PoloniexETHTickerHandler)
 	if err != nil {
 		log.Fatal(err)
 	}

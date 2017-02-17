@@ -10,7 +10,7 @@ var (
 	mutex = sync.Mutex{}
 )
 
-func LTCTickerHandler(p []interface{}, n map[string]interface{}) {
+func PoloniexLTCTickerHandler(p []interface{}, n map[string]interface{}) {
 	mutex.Lock()
 	defer mutex.Unlock()
 	block := TradeBlock{Pair: "BTC_LTC"}
@@ -21,12 +21,12 @@ func LTCTickerHandler(p []interface{}, n map[string]interface{}) {
 			block.Timestamp = t.Timestamp
 			block.Trades = append(block.Trades, &t)
 			pp.Println(block)
-			tickerDBMap["BTC_LTC"].AddTradeBlock(block)
+			tickerDBMap.DB("poloniex", "BTC_LTC").AddTradeBlock(block)
 		}
 	}
 }
 
-func ETHTickerHandler(p []interface{}, n map[string]interface{}) {
+func PoloniexETHTickerHandler(p []interface{}, n map[string]interface{}) {
 	mutex.Lock()
 	defer mutex.Unlock()
 	block := TradeBlock{Pair: "BTC_ETH"}
@@ -37,7 +37,7 @@ func ETHTickerHandler(p []interface{}, n map[string]interface{}) {
 			block.Timestamp = t.Timestamp
 			block.Trades = append(block.Trades, &t)
 			pp.Println(block)
-			tickerDBMap["BTC_ETH"].AddTradeBlock(block)
+			tickerDBMap.DB("poloniex", "BTC_ETH").AddTradeBlock(block)
 		}
 	}
 }

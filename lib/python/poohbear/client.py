@@ -11,13 +11,16 @@ class Client(object):
     def get_trade_range(self, trade_range):
         return self.trade_range_stub.GetTradeRange(trade_range)
 
-    def up_to_now(self, pair="", days_ago=0,
-                  hours_ago=0, minutes_ago=0,
-                  seconds_ago=0):
+    def up_to_now(self, exchange="", pair="", days_ago=0,
+                  hours_ago=0, minutes_ago=0, seconds_ago=0):
 
-        time_span = trade_time.up_to_now(pair=pair,
+        time_span = trade_time.up_to_now(exchange=exchange,
+                                         pair=pair,
                                          days_ago=days_ago,
                                          hours_ago=hours_ago,
                                          minutes_ago=minutes_ago)
         result = self.trade_range_stub.GetTradeRange(time_span)
         return result
+
+    def last_trade(self, pair="", exchange=""):
+        print "hello"

@@ -11,7 +11,7 @@ import (
 	"google.golang.org/grpc/grpclog"
 )
 
-func startServer(port int, wg *sync.WaitGroup, tickerMap map[string]*TickerDB) {
+func startServer(port int, wg *sync.WaitGroup, tickerMap TickerDBMap) {
 	defer wg.Done()
 	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", port))
 	if err != nil {
@@ -25,22 +25,46 @@ func startServer(port int, wg *sync.WaitGroup, tickerMap map[string]*TickerDB) {
 }
 
 type tradeServer struct {
-	tickerMap map[string]*TickerDB
+	tickerMap TickerDBMap
 }
 
-func newTradeServer(tickerMap map[string]*TickerDB) *tradeServer {
+func newTradeServer(tickerMap TickerDBMap) *tradeServer {
 	s := new(tradeServer)
 	s.tickerMap = tickerMap
 	return s
 }
 
 func (ps *tradeServer) GetTradeRange(ctx context.Context, r *DateRange) (*TradeBlockRange, error) {
+	var err error
+	var result *TradeBlockRange
+	switch r.Exchange {
+	case "bitfinex":
+		result, err = ps.handleBitfinexTicker(ctx, r)
+	case "poloniex":
+		result, err = ps.handlePoloniexTicker(ctx, r)
+	}
+
+	return result, err
+}
+
+func (ps *tradeServer) handlePoloniexTicker(ctx context.Context, r *DateRange) (*TradeBlockRange, error) {
+	var err error
 	var result *TradeBlockRange
 	switch r.Pair {
 	case "BTC_LTC":
-		result = ps.tickerMap[r.Pair].GetTradeRange([]byte(r.Start), []byte(r.End))
+		result, err = ps.tickerMap.DB("poloniex", "BTC_LTC").GetTradeRange([]byte(r.Start), []byte(r.End))
 	case "BTC_ETH":
-		result = ps.tickerMap[r.Pair].GetTradeRange([]byte(r.Start), []byte(r.End))
+		result, err = ps.tickerMap.DB("poloniex", "BTC_ETH").GetTradeRange([]byte(r.Start), []byte(r.End))
 	}
-	return result, nil
+	return result, err
+}
+
+func (ps *tradeServer) handleBitfinexTicker(ctx context.Context, r *DateRange) (*TradeBlockRange, error) {
+	var err error
+	var result *TradeBlockRange
+	switch r.Pair {
+	case "BTC_USD":
+		result, err = ps.tickerMap.DB("bitfinex", "BTC_USD").GetTradeRange([]byte(r.Start), []byte(r.End))
+	}
+	return result, err
 }

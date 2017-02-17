@@ -29,4 +29,5 @@ deps:
 	go get github.com/jcelliott/turnpike
 	go get github.com/boltdb/bolt/...
 	go get github.com/k0kubun/pp
-	go get -u go.uber.org/zap
+	go get go.uber.org/zap
+	go get github.com/bitfinexcom/bitfinex-api-go

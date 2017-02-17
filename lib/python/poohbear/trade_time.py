@@ -7,9 +7,8 @@ def rfc3339_time(dt):
     else:
         return "%sZ" % dt.isoformat()
 
-def up_to_now(pair="", days_ago=0,
-              hours_ago=0, minutes_ago=0,
-              seconds_ago=0):
+def up_to_now(exchange="", pair="", days_ago=0,
+              hours_ago=0, minutes_ago=0, seconds_ago=0):
 
     end = rfc3339_time(datetime.utcnow())
 
@@ -20,7 +19,8 @@ def up_to_now(pair="", days_ago=0,
 
     start = rfc3339_time(datetime.utcnow() - delta)
 
-    time_range = trade_pb2.DateRange(pair=pair,
+    time_range = trade_pb2.DateRange(exchange=exchange,
+                                     pair=pair,
                                      start=start,
                                      end=end)
 

@@ -9,5 +9,6 @@ setup(name='poohbear',
       author_email='clownpriest@gmail.com',
       license="MIT",
       url='https://github.com/clownpriest/poohbear/lib/python',
-      packages=["poohbear"]
+      packages=["poohbear"],
+      install_requires=['grpc']
 )

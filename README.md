@@ -11,6 +11,7 @@ It does both the collecting *and* the storing out of the box. Events (trades, or
 updates, etc...) are streamed into poohbear from different exchanges (Bitfinex, Poloniex, BTC-e,
 etc..), and access to its warehouse of market history is exposed through a gRPC interface.
 
+
 This repo also contains a Python interface to the poohbear daemon, in the lib/python folder.
 It makes gRPC requests to the daemon and recieves protobuf messages in return.
 

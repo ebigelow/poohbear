@@ -10,5 +10,5 @@ setup(name='poohbear',
       license="MIT",
       url='https://github.com/clownpriest/poohbear/lib/python',
       packages=["poohbear"],
-      install_requires=['grpc']
+      install_requires=['grpc', 'grpcio']
 )

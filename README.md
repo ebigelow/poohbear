@@ -24,16 +24,16 @@ subset of what "working" means.**
 
 For the main poohbear system:
 ```
-$: git clone https://github.com/clownpriest/poohbear
-$: cd poohbear
-$: make install
-$: poohbear
+git clone https://github.com/clownpriest/poohbear
+cd poohbear
+make install
+poohbear
 ```
 
-for the python gRPC interface:
+For the python gRPC interface:
 ```
-$: cd lib/python
-$: python setup.py install
+cd lib/python
+python setup.py install
 ```
 
 
